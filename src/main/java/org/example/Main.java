@@ -1,13 +1,14 @@
 package org.example;
 
-import org.example.helloWorld.MessageRenderer;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.example.helloWorld.MessageProvider;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
-        MessageRenderer mr = ctx.getBean("renderer", MessageRenderer.class);
-        mr.render();
+        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+        ctx.load("classpath:app-context-xml.xml");
+        ctx.refresh();
+        MessageProvider mp = ctx.getBean("messageProvider", MessageProvider.class);
+        System.out.println(mp.getMessage());
     }
 }
