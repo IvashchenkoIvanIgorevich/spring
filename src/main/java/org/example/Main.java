@@ -1,15 +1,13 @@
 package org.example;
 
-import org.example.helloWorld.HelloWorldMessageProvider;
-import org.example.helloWorld.MessageProvider;
 import org.example.helloWorld.MessageRenderer;
-import org.example.helloWorld.StandardOutMessageRenderer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        MessageProvider mp = new HelloWorldMessageProvider();
-        MessageRenderer mr = new StandardOutMessageRenderer();
-        mr.setMessageProvider(mp);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
+        MessageRenderer mr = ctx.getBean("renderer", MessageRenderer.class);
         mr.render();
     }
 }
